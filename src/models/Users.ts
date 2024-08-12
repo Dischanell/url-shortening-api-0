@@ -9,7 +9,8 @@ interface User {
 }
 
 interface UserMethods {
-    validatePassword(password: string): Promise<boolean>
+    isCorrectPassword(password: string): Promise<boolean>,
+    updateUser(email: string, password: string): Promise<User>
 }
 
 const temporaryUserEmail = () => {
@@ -41,9 +42,19 @@ UserSchema.pre('save', async function(next){
     next()
 })
 
-UserSchema.method('validatePassword', async function (password: string): Promise<boolean> {
-    const isValid = await compare(password, this.password)
-    return isValid
+UserSchema.method('isCorrectPassword', async function (password: string): Promise<boolean> {
+    const isCorrectPassword = await compare(password, this.password)
+    return isCorrectPassword
+})
+
+UserSchema.method('updateUser', async function (email: string, password: string): Promise<User> {
+    const user = this
+
+    user.email = email
+    user.password = password
+    await user.save()
+
+    return user
 })
 
 const User = model<User, UserModel>('Users', UserSchema)

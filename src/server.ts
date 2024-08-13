@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { connectToDatabase } from './database'
 import { handleUserRegistration, handleUserLogin, handleTemporaryUserRegistration } from './controllers/userController'
@@ -10,8 +11,20 @@ dotenv.config()
 
 const port = process.env.PORT
 
+const allowedOrigins = [
+    'http://localhost:5173',
+    // add production frontend
+]
+
+const corsOptions = {
+    origin: allowedOrigins,
+    methods: 'GET, POST',
+    credentials: true
+}
+
 const app = express()
 
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 

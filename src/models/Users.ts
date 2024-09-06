@@ -2,7 +2,6 @@ import { Schema, model, Model } from 'mongoose'
 import { hash, compare } from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
 
-
 interface User {
     email: string,
     password: string

@@ -3,7 +3,6 @@ import Urls from '../models/Urls'
 import Sessions from '../models/Sessions'
 import { isURL, IsURLOptions } from 'validator'
 
-
 export async function handleRedirect(req: Request, res: Response){
     try {
         const shortId = req.params['shortId']

@@ -1,7 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 import { nanoid } from 'nanoid'
 
-
 interface Url {
     userId: Types.ObjectId,
     url: string,

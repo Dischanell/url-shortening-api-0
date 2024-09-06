@@ -6,7 +6,6 @@ import { connectToDatabase } from './database'
 import { handleUserRegistration, handleUserLogin, handleTemporaryUserRegistration } from './controllers/userController'
 import { shortenUrl, handleRedirect, getUrls } from './controllers/urlController'
 
-
 dotenv.config()
 
 const port = process.env.PORT

@@ -4,7 +4,6 @@ import Sessions from '../models/Sessions'
 import { Types } from 'mongoose'
 import { isEmail, isStrongPassword } from 'validator'
 
-
 export async function handleTemporaryUserRegistration(req: Request, res: Response){
     try {
         const user = await Users.create({})

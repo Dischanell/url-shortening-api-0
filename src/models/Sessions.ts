@@ -1,7 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 import { v4 as uuidv4 } from 'uuid'
 
-
 interface Session {
     sessionId: string,
     userId: Types.ObjectId,

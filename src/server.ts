@@ -4,7 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { connectToDatabase } from './database'
 import { handleUserRegistration, handleUserLogin, handleTemporaryUserRegistration } from './controllers/userController'
-import { shortenUrl, handleRedirect, getUrls } from './controllers/urlController'
+import { handleRedirect, getUrls, shortenUrl, removeUrl } from './controllers/urlController'
 
 dotenv.config()
 
@@ -34,8 +34,9 @@ app.post('/api/users/temporary', handleTemporaryUserRegistration) // Temporary u
 
 app.post('/api/sessions', handleUserLogin) // User login
 
-app.post('/api/urls', shortenUrl) // Shorten URL
 app.get('/api/urls', getUrls) // Get Shortened URLs
+app.post('/api/urls', shortenUrl) // Shorten URL
+app.delete('/api/urls', removeUrl) // Remove Shortened URL
 
 app.get('/:shortId', handleRedirect) // Visit Short URL
 

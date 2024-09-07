@@ -48,6 +48,30 @@ export async function shortenUrl(req: Request, res: Response){
     }
 }
 
+export async function removeUrl(req: Request, res: Response){
+    const { shortId } = req.query
+    const { sessionId } = req.cookies
+
+    if (!sessionId || !shortId) return res.status(400).json({ message: 'Both sessionId and shortId are required' });
+
+    try {
+        const url = await Urls.findOne({ shortId: shortId })
+        if (!url) return res.status(404).json({ message: 'URL not found' })
+
+        const session = await getSessionById(sessionId)
+        if (!session) return res.status(404).json({ message: 'Session not found' })
+            
+        if (!url.userId.equals(session.userId)) return res.status(403).json({ message: 'Unauthorized' })
+
+        await url.deleteOne()
+
+        return res.status(204).send()
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 export async function getUrls(req: Request, res: Response){
     const { sessionId } = req.cookies
 
